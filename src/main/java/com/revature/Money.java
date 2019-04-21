@@ -1,57 +1,80 @@
 package com.revature;
 
 public class Money {
-	//Declare fields
+	// Declare fields
 	private int dollars;
 	private int cents;
-	
-	//Constructor Methods
-	//Parameterless Constructor
-	Money(){
+	public String account_id;
+
+	public class InsufficientFundsException extends Exception {
+		public InsufficientFundsException(Money a, Money b) {
+			System.out.println("Attempting to withdraw $" + b + " from $" + a + ". Insufficient funds available.");
+		}
+	}
+
+	// Constructor Methods
+	// Parameterless Constructor
+	Money() {
 		this.dollars = 0;
 		this.cents = 0;
 	}
-	//2-Parameter Constructor
-	Money(int dollars, int cents){
+
+	// Input as String of type (XX.YY)
+	Money(String input) {
+		this.dollars = Integer.parseInt(input.split("\\.")[0]);
+		this.cents = Integer.parseInt(input.split("\\.")[1]);
+	}
+
+	// 2-Parameter Constructor
+	Money(int dollars, int cents) {
 		this.dollars = dollars;
 		this.cents = cents;
 	}
-	
-	//Mutator/Setters
+
+	// 3-Parameter Constructor
+	Money(int dollars, int cents, String account_id) {
+		this.dollars = dollars;
+		this.cents = cents;
+		this.account_id = account_id;
+	}
+
+	// Mutator/Setters
 	void setDollars(int dollars) {
 		this.dollars = dollars;
 	}
+
 	void setCents(int cents) {
 		this.cents = cents;
 	}
-	
-	//Accessors/Getters
+
+	// Accessors/Getters
 	int getDollars() {
 		return this.dollars;
 	}
+
 	int getCents() {
 		return this.cents;
 	}
-	
-	void subtract(Money other) {
-		if (((other.dollars >= this.dollars) && (other.cents > this.cents)) || (other.dollars > this.dollars)) {
-			//THROW EXCEPTION
-			System.out.println(((other.dollars < this.dollars) && (other.cents > this.cents)) );
-			System.out.println(other.dollars>this.dollars);
-			System.out.println("Case 1");
-		}
-		else if(other.dollars < this.dollars && other.cents >= this.cents) {
-			System.out.println("Case 2");
-			this.dollars = this.dollars - other.dollars - 1 ;
-			this.cents = 100-(other.cents - this.cents);
-		}
-		else if(other.dollars <= this.dollars && other.cents <= this.cents) {
-			System.out.println("Case 3");
-			this.dollars -= other.dollars;
-			this.cents -= other.cents;
+
+	int compare(Money other) {
+		return (this.dollars - other.dollars);
+	}
+
+	void subtract(Money other) throws InsufficientFundsException {
+		System.out.println("Attempting to subtract " + other + " from " + this);
+		if (this.compare(other) < 0) {
+			throw new InsufficientFundsException(this, other);
+		} else if (this.compare(other) >= 0) {
+			if (this.cents < other.cents) {
+				this.dollars = this.dollars - other.dollars - 1;
+				this.cents = 100 - (other.cents - this.cents);
+			} else {
+				this.dollars = this.dollars - other.dollars;
+				this.cents = this.cents - other.cents;
+			}
 		}
 	}
-	
+
 	void add(Money other) {
 		this.dollars += other.dollars;
 		this.cents += other.cents;
@@ -60,8 +83,8 @@ public class Money {
 			this.cents -= 100;
 		}
 	}
-	
+
 	public String toString() {
-		return this.dollars+"."+ (this.cents < 10 ? "0":"") + this.cents;
+		return this.dollars + "." + (this.cents < 10 ? "0" : "") + this.cents;
 	}
 }
