@@ -4,7 +4,7 @@ public class Admin extends Person {
 	final int ACCESSLEVEL = 1;
 	
 	//Constructor
-	Admin(String fName, String lName, int id, String username, String password){
+	Admin(String fName, String lName, String id, String username, String password){
 		super(fName, lName, id, username, password);
 	}
 	
