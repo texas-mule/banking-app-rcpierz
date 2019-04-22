@@ -1,5 +1,5 @@
 package com.revature;
 
-public enum AccountType{
-	SAVINGS, CHECKING 
+public enum AccountType {
+	SAVINGS, CHECKING;
 }

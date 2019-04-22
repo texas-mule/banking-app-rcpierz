@@ -21,8 +21,14 @@ public class Money {
 
 	// Input as String of type (XX.YY)
 	Money(String input) {
-		this.dollars = Integer.parseInt(input.split("\\.")[0]);
-		this.cents = Integer.parseInt(input.split("\\.")[1]);
+		if (input.split("\\.").length == 1) {
+			this.dollars = Integer.parseInt(input);
+			this.cents = 0;
+		} else if (input.split("\\.").length == 2) {
+			this.dollars = Integer.parseInt(input.split("\\.")[0]);
+			this.cents = Integer.parseInt(input.split("\\.")[1]);
+		} else
+			System.out.println("Unable to parse Money string.");
 	}
 
 	// 2-Parameter Constructor
@@ -88,6 +94,5 @@ public class Money {
 	public String toString() {
 		return this.dollars + "." + (this.cents < 10 ? "0" : "") + this.cents;
 	}
-	
-	
+
 }

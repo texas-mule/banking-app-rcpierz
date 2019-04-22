@@ -8,7 +8,9 @@ import java.util.ArrayList;
 
 public class Main {
 	public static void main(String[] args) {
+		// Load Personnel and Accounts data from .txt files
 		ArrayList<Person> personnel = PersonnelLoader.loadPersonnel();
+		ArrayList<Account> accounts = AccountLoader.loadAccounts();
 		int accessLevel = 0;
 		String loginUsername, loginPassword;
 		Person currentUser = new Person();
@@ -54,16 +56,19 @@ public class Main {
 			System.out.println("You have access to the following accounts: "+currentUser.getAccess());
 			System.out.println("Enter the account number you would like to access or enter 0 to create a new account");
 			String accountChoice= scanIn.nextLine();
-			while (!accountChoice.contains("0-9*")) {
+			while (!accountChoice.matches("\\d")) {
 				System.out.println("Unrecognized input. Please re-enter your selection");
 				accountChoice = scanIn.nextLine();
 			} 
-			if (accountChoice == "0") {
-				Account.createNewAccount(personnel);
+			if (accountChoice.equals("0")) {
+				Account.createNewAccount(personnel, accounts);
 			} else {
+				Account currentAccount =  Account.findAccountById(accountChoice, accounts);
+				System.out.println(currentAccount.toString());
 				// TODO
 				//DISPLAY ACCOUNT INFORMATION. 
 				//GIVE OPTIONS FOR WITHDRAW DEPOSIT AND TRANSFER
+				
 			}
 				
 			
