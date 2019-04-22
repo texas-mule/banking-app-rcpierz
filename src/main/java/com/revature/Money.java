@@ -62,10 +62,10 @@ public class Money {
 
 	void subtract(Money other) throws InsufficientFundsException {
 		System.out.println("Attempting to subtract " + other + " from " + this);
-		if (this.compare(other) < 0) {
+		if ((this.compare(other) < 0) || (this.compare(other) == 0 && (other.cents > this.cents))) {
 			throw new InsufficientFundsException(this, other);
 		} else if (this.compare(other) >= 0) {
-			if (this.cents < other.cents) {
+			if ((this.compare(other) > 0) && (this.cents < other.cents)) {
 				this.dollars = this.dollars - other.dollars - 1;
 				this.cents = 100 - (other.cents - this.cents);
 			} else {
@@ -84,7 +84,10 @@ public class Money {
 		}
 	}
 
+	@Override
 	public String toString() {
 		return this.dollars + "." + (this.cents < 10 ? "0" : "") + this.cents;
 	}
+	
+	
 }
