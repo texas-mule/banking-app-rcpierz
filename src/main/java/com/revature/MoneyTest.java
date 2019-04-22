@@ -29,7 +29,6 @@ public class MoneyTest {
 			a.subtract(b);
 			fail();
 		} catch (InsufficientFundsException e) {
-			// TODO Auto-generated catch block
 			assertNotNull(e);
 		}
 	}
@@ -37,14 +36,14 @@ public class MoneyTest {
 	@Test
 	public void testLessDollarsLessCents() {
 		Money a = new Money(12, 34);
-		Money b = new Money(3, 12);
+		Money b = new Money(3, 56);
 		try {
 			a.subtract(b);
 		} catch (InsufficientFundsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertEquals(a.toString(), "9.22");
+		assertEquals(a.toString(), "8.78");
 	}
 
 }

@@ -12,7 +12,7 @@ public class Person implements java.io.Serializable {
 	public int ACCESSLEVEL = 0;
 	ArrayList<String> access = new ArrayList<String>();
 	
-	Person(String fName, String lName, String id, String username, String password){
+	Person(String id, String fName, String lName, String username, String password, ArrayList<String> access){
 						//Capitalize first and last name
 		if (fName.length() > 1) this.fName = fName.substring(0,1).toUpperCase() + fName.substring(1).toLowerCase();
 		else this.fName = fName;
@@ -21,6 +21,7 @@ public class Person implements java.io.Serializable {
 		this.id = id;
 		this.username = username.toLowerCase();
 		this.password = password;
+		this.access = access;
 	}
 	
 	public Person() {
@@ -29,8 +30,19 @@ public class Person implements java.io.Serializable {
 		this.id = "0";
 		this.username = "username";
 		this.password = "password";
+		this.access = new ArrayList<String>();
 	}
 
+	public static ArrayList<String> parseAccess(String accessStr){
+		ArrayList<String> access = new ArrayList<String>();
+		String[] accessArr = accessStr.substring(1,accessStr.length()-1).split(";");
+		for (String s : accessArr) {
+			System.out.println(s);
+			access.add(s);
+		}
+		return access;
+	}
+	
 	public String getfName() {
 		return fName;
 	}
@@ -68,8 +80,11 @@ public class Person implements java.io.Serializable {
 		}
 		System.out.print("Please enter your desired password: ");
 		password = sc.nextLine();
-		PersonnelLoader.savePersonnel(new Person(fName,lName, id, username, password));
-		return new Person(fName, lName, id, username, password);
+		Person newUser = new Person(id, fName,lName, username, password, new ArrayList<String>());
+		newUser.access.add("005");
+		newUser.access.add("006");
+		PersonnelLoader.savePersonnel(newUser);
+		return newUser;
 	}
 	
 	// findUserInDatabase scans the personnel directory to find the Person object that the user is attempting
@@ -96,7 +111,7 @@ public class Person implements java.io.Serializable {
 	
 	@Override
 	public String toString() {
-		return fName+","+lName+","+id+","+username+","+password;
+		return id+";"+fName+";"+lName+";"+username+";"+password+";"+access.toString();
 	}
 	
 }

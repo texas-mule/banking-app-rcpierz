@@ -9,24 +9,15 @@ import java.util.ArrayList;
 public class Main {
 	public static void main(String[] args) {
 		ArrayList<Person> personnel = PersonnelLoader.loadPersonnel();
-		String id = "0";
 		int accessLevel = 0;
 		String loginUsername, loginPassword;
 		Person currentUser = new Person();
 
+		// Welcome Message with Login and Optional User Account Creation
 		Scanner scanIn = new Scanner(System.in);
-		System.out.println("Welcome to Texas Mule Banking Systems.+\n"
-				+ "Please enter your username (Case Sensitive). If you do not have an account, enter \"guest\". Enter exit to close the application");
+		System.out.println("++Welcome to Texas Mule Banking Systems++\n\n"
+				+ "Please enter your username (Case Sensitive). If you do not have an account, enter \'guest\'. Enter \'exit\' to close the application");
 
-		Money a = new Money(12, 34);
-		Money b = new Money(13, 56);
-		try {
-			a.subtract(b);
-		} catch (InsufficientFundsException e) {
-			System.out.println("Amount could not be withdrawn. Please enter a new amount: ");
-			a = new Money(scanIn.nextLine());
-		}
-		System.out.println(a);
 
 		// Continue processing input until user enters 'exit'
 		while (!(loginUsername = scanIn.nextLine()).equals("exit\n") || accessLevel == 0) {
@@ -38,6 +29,7 @@ public class Main {
 				System.out.print(
 						"Thank you for creating a new account. You may now log in.\nPlease enter your username: ");
 				loginUsername = scanIn.nextLine();
+				
 			}
 
 			// Search for user
@@ -58,7 +50,24 @@ public class Main {
 
 			// User is logged in
 			System.out.println("Thank you for logging in, Mr/Mrs. " + currentUser.getlName());
-
+			
+			System.out.println("You have access to the following accounts: "+currentUser.getAccess());
+			System.out.println("Enter the account number you would like to access or enter 0 to create a new account");
+			String accountChoice= scanIn.nextLine();
+			while (!accountChoice.contains("0-9*")) {
+				System.out.println("Unrecognized input. Please re-enter your selection");
+				accountChoice = scanIn.nextLine();
+			} 
+			if (accountChoice == "0") {
+				Account.createNewAccount(personnel);
+			} else {
+				// TODO
+				//DISPLAY ACCOUNT INFORMATION. 
+				//GIVE OPTIONS FOR WITHDRAW DEPOSIT AND TRANSFER
+			}
+				
+			
+			
 		} // end While loop
 		System.out.println("Access has been granted, or you are exiting. Successfully exited While loop");
 
