@@ -48,7 +48,6 @@ public class CustomerDAO {
 						rs.getString("password"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -75,7 +74,6 @@ public class CustomerDAO {
 						rs.getString("password"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -94,7 +92,6 @@ public class CustomerDAO {
 			Statement statement = connection.createStatement();
 			statement.execute(sql);
 		} catch (SQLException e) { e.printStackTrace(); }
-		// TODO create transaction log file
 	}
 	
 	public ArrayList<Customer> getAll(){
@@ -118,10 +115,8 @@ public class CustomerDAO {
 				if (Integer.parseInt(rs.getString("cust_id")) > maxID) maxID = Integer.parseInt(rs.getString("cust_id"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return customers;
-		
+		return customers;	
 	}
 }

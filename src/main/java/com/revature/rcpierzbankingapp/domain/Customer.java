@@ -1,10 +1,5 @@
 package com.revature.rcpierzbankingapp.domain;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -50,8 +45,7 @@ public class Customer extends Person {
 		String fName, lName, gender, dob, username, password;
 		String id;
 		Random rand = new Random();
-		// TODO Disallow "1" as an option
-		String emp_id = Integer.toString(rand.nextInt(allEmp.size())+1);
+		String emp_id = Integer.toString(rand.nextInt(allEmp.size()-1)+2);
 		
 		
 		id = Integer.toString(++CustomerDAO.maxID);

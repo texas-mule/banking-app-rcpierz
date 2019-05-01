@@ -101,9 +101,7 @@ public class EmployeeDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return allOverseenCustomers;
-		
 	}
 	
 	public ArrayList<Account> fetchCustomerAccList(Employee currEmp){
@@ -138,6 +136,4 @@ public class EmployeeDAO {
 		}
 		return allOverseenAcc;
 	}
-
 }
-

@@ -87,21 +87,4 @@ public class Employee extends Person {
 		} else {doContinueApproving = "N";}
 		return doContinueApproving;
 	}
-	
-//	public static ArrayList<Account> displayPendingAccounts(ArrayList<Account> empAccList) {
-//		// Display the user accounts that are open
-//		ArrayList<Account> empPendingAccList = new ArrayList<Account>();
-//		
-//		System.out.println("You have access to the following OPEN accounts: ");
-//		for (Account acc : empPendingAccList) {
-//			if (acc.isOpen()){
-//				empPendingAccList.add(acc);
-//				System.out.println(
-//						"Account #"+acc.getAccountId()+
-//						" Balance: $"+acc.getBalance()+
-//						" Status: "+(acc.getStatus()).toString());
-//			}
-//		}
-//		return empPendingAccList;
-//	}
 }

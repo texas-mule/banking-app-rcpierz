@@ -8,9 +8,4 @@ public class Admin extends Employee {
 	Admin(String fName, String lName, String id, String username, String password){
 		super(fName, lName, id, username, password);
 	}
-	
-	
-	
-	
-	
 }

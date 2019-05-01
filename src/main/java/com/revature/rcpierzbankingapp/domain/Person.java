@@ -3,19 +3,12 @@ package com.revature.rcpierzbankingapp.domain;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Person implements java.io.Serializable {
+public class Person {
 	public String fName;
 	public String lName;
 	public String id;
 	protected String username;
 	protected String password;
-	public int ACCESSLEVEL = 0; // TODO delete
-	ArrayList<String> access = new ArrayList<String>(); // TODO Delete
-	
-//	TODO
-//	Person(String[] personData){
-//		Person(personData)
-//	}
 	
 	Person(String id, String fName, String lName, String username, String password, ArrayList<String> access){
 						//Capitalize first and last name
@@ -26,7 +19,6 @@ public class Person implements java.io.Serializable {
 		this.id = id;
 		this.username = username.toLowerCase();
 		this.password = password;
-		this.access = access;
 	}
 	
 	public Person() {
@@ -35,7 +27,6 @@ public class Person implements java.io.Serializable {
 		this.id = "0";
 		this.username = "username";
 		this.password = "password";
-		this.access = new ArrayList<String>();
 	}
 	
 	
@@ -60,8 +51,6 @@ public class Person implements java.io.Serializable {
 		return this.password.equals(password);
 	}
 	
-
-	
 	// findUserInDatabase scans the personnel directory to find the Person object that the user is attempting
 	// to log in as, based on their username input
 	public static Person findUserInDatabase(String loginUsername, ArrayList<? extends Person> personnel) {
@@ -72,13 +61,9 @@ public class Person implements java.io.Serializable {
 		return null;
 	}
 	
-	
-	
-	
-	
 	@Override
 	public String toString() {
-		return id+";"+fName+";"+lName+";"+username+";"+password+";"+access.toString();
+		return id+";"+fName+";"+lName+";"+username+";"+password+";";
 	}
 	
 }

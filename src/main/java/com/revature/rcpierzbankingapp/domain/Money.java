@@ -110,5 +110,4 @@ public class Money {
 	public String toString() {
 		return this.dollars + "." + (this.cents < 10 ? "0" : "") + this.cents;
 	}
-
 }

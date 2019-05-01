@@ -2,38 +2,27 @@ package com.revature.rcpierzbankingapp.domain;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
 		SQLConnection sqlconnection = SQLConnection.getInstance();
-		// url = jdbc:subprotocol://url-ip:rdbmsport/database-name
-//		String url = "jdbc:postgresql://192.168.99.100:5432/bankingapp";
-//		String username = "bankingapp";
-//		String password = "p4ssw0rd";
-		String sql;
-		String userInput;
-		ResultSet resultSet;
+		String userInput, continueA, continueB, continueC;
 		Customer currCust;
 		Boolean adminStatus=false;
-		String continueA, continueB, continueC;
-
-		Boolean isResultSet;
 		
 		Properties prop = new Properties();
 		try {
 			prop.load(ClassLoader.getSystemResourceAsStream("connection.properties"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
+		
+		Scanner scanIn = new Scanner(System.in);
 
 		// Create/Open a connection to a postgres instance and take in Scanner input from standard input
 		try (Connection connection = sqlconnection.establishConnection(prop.getProperty("url"), prop.getProperty("user"), 
@@ -42,40 +31,6 @@ public class Main {
 			EmployeeDAO empDAO = EmployeeDAO.establish(connection);
 			AccountDAO accDAO = AccountDAO.establish(connection);
 			TransactionDAO transDAO = TransactionDAO.establish(connection);
-			
-			// awaiting input from user
-			
-			/*
-			 * TODO 
-			 * DELETE
-			 * JUST FOR TESTING
-			 */
-			System.out.print("sql> ");
-			Scanner scanIn = new Scanner(System.in);
-			sql = scanIn.nextLine();
-			if (!(sql.equals(""))){
-				Statement statement = connection.createStatement();
-				isResultSet = statement.execute(sql);
-				if (isResultSet) {
-					ResultSet rs = statement.getResultSet();
-					ResultSetMetaData rsmd = rs.getMetaData();
-					while (rs.next()) {
-						for (int i=1;i<=rsmd.getColumnCount(); i++)
-							System.out.print(rs.getString(i)+"\t");
-						System.out.println();
-					}
-				} else {
-					System.out.println(statement.getUpdateCount() + " rows affected");
-					
-				}
-			}
-			/*
-			 * TODO 
-			 * DELETE
-			 * JUST FOR TESTING
-			 */
-			
-			
 
 			// persist until exit
 			while (true) {
@@ -96,6 +51,8 @@ public class Main {
 				System.out.print("Are you logging in as a Customer (C) or Employee (E): ");
 				userInput = scanIn.nextLine().toUpperCase();
 
+				if (userInput.equals("exit")) break;
+				
 				while (!((userInput.equals("C") || userInput.equals("E")))) {
 					System.out.print("Unrecognized input. Please enter 'C' for Customer or 'E' for Employee: ");
 					userInput = scanIn.nextLine().toUpperCase();
@@ -359,8 +316,10 @@ public class Main {
 					}
 				}
 			} // end While loop
+			scanIn.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
+		
 	}
 }
