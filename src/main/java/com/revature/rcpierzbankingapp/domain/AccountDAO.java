@@ -49,7 +49,7 @@ public class AccountDAO {
 	}
 	
 	
-	public void addAccountToDatabase(Account acc) {
+	public void addAccountToDatabase(Person currUser, Account acc) {
 		sql = "INSERT INTO accounts VALUES ("+
 				acc.id+", "+
 				acc.owner_id+", "+
@@ -63,6 +63,7 @@ public class AccountDAO {
 			
 			if (statement.getUpdateCount() == 1) {
 				System.out.println("Account successfully added to database");
+				TransactionDAO.logNewAccount(currUser, acc);
 				// TODO Add LogNewAccount
 			} else System.out.println("Unable to add account to database.");
 		} catch (SQLException e) { e.printStackTrace(); }
@@ -121,6 +122,16 @@ public class AccountDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public ArrayList<Account> fetchOpenCustomerAccounts(String custId){
+		ArrayList<Account> tempAccountList = fetchAvailableCustomerAccounts(custId);
+		ArrayList<Account> openAccountList = new ArrayList<Account>();
+		for (Account acc : tempAccountList) {
+			if (acc.isOpen())
+				openAccountList.add(acc);
+		}
+		return openAccountList;
 	}
 
 	public ArrayList<Account> fetchAvailableCustomerAccounts(String custId){

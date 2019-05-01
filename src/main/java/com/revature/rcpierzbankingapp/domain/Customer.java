@@ -175,7 +175,7 @@ public class Customer extends Person {
 
 	@Override
 	public String toString() {
-		return id + "\t" + fName + "\t" + lName + "\t" + gender + "\t" + dob
+		return id + "\t" + fName + "\t\t" + lName + "\t\t" + gender + "\t" + dob
 				+ "\t" + emp_id + "\t" + username + "\t" + password;
 	}
 

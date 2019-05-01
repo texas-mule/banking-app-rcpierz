@@ -55,7 +55,6 @@ public class CustomerDAO {
 	
 	public Customer fetchCustomerByUsername(String inputUsername) {
 		sql = "SELECT * FROM customers WHERE username = \'" + inputUsername + "\'";
-		System.out.println(sql);
 		try {
 			Statement statement = connection.createStatement();
 			Boolean isResultSet = statement.execute(sql);

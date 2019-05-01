@@ -29,10 +29,9 @@ public class Account {
 		this.joint_id = (accData[2] != null ? Integer.parseInt(accData[2]) : 0);
 		this.type = AccountType.valueOf(accData[3]);
 		this.balance = new Money(accData[4]);
-		if (accData[5].equals("t")) this.status = true;
+		if (accData[5] == null) this.status = null;
 		else if(accData[5].equals("f")) this.status = false;
-		else if(accData[5] == null) this.status = null;
-		else this.status = Boolean.parseBoolean(accData[5]);
+		else if(accData[5].equals("t")) this.status = true;
 	}
 
 	// Full Constructor
@@ -199,7 +198,6 @@ public class Account {
 		System.out.println("The account is currently pending... Requires employee approval before use");
 		accData[5] = null;
 		
-		sc.close();
 		return new Account(accData);
 	}
 	
@@ -295,7 +293,6 @@ public class Account {
 		otherAcc.displayAccount();
 		
 		TransactionDAO.logTransfer(currUser, transferAmount, this, otherAcc);
-		
 		return otherAcc;
 	}
 	

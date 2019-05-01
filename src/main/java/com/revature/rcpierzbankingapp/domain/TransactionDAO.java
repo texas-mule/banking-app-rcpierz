@@ -82,9 +82,16 @@ public class TransactionDAO {
 	}
 	
 	public static void logNewUser(Customer newCust) {
-		sql = "INSERT INTO customers VALUES ("+
+		sql = "INSERT INTO transactions VALUES ("+
 				++maxId + ", CURRENT_TIMESTAMP, \'" + 
 				newCust.getUsername() + "\', \'New User Created: "+newCust.toString() + "\')";
 		logTransaction(sql);
+	}
+	
+	public static void logNewAccount(Person currUser, Account newAcc) {
+		sql = "INSERT INTO transactions VALUES ("
+				+ ++maxId + ", CURRENT_TIMESTAMP, \'"
+				+ currUser.getUsername() + "\', \'New Account Created: "
+				+newAcc.toString() + "\')";
 	}
 }
