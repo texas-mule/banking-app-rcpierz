@@ -14,18 +14,11 @@ import java.util.Scanner;
 public class Main {
 	public static void main(String[] args) {
 		SQLConnection sqlconnection = SQLConnection.getInstance();
-		// url = jdbc:subprotocol://url-ip:rdbmsport/database-name
-//		String url = "jdbc:postgresql://192.168.99.100:5432/bankingapp";
-//		String username = "bankingapp";
-//		String password = "p4ssw0rd";
 		String sql;
-		String userInput;
+		String userInput, continueA, continueB, continueC;
 		ResultSet resultSet;
 		Customer currCust;
-		Boolean adminStatus=false;
-		String continueA, continueB, continueC;
-
-		Boolean isResultSet;
+		Boolean isResultSet, adminStatus=false;
 		
 		Properties prop = new Properties();
 		try {
@@ -42,40 +35,6 @@ public class Main {
 			EmployeeDAO empDAO = EmployeeDAO.establish(connection);
 			AccountDAO accDAO = AccountDAO.establish(connection);
 			TransactionDAO transDAO = TransactionDAO.establish(connection);
-			
-			// awaiting input from user
-			
-			/*
-			 * TODO 
-			 * DELETE
-			 * JUST FOR TESTING
-			 */
-			System.out.print("sql> ");
-			Scanner scanIn = new Scanner(System.in);
-			sql = scanIn.nextLine();
-			if (!(sql.equals(""))){
-				Statement statement = connection.createStatement();
-				isResultSet = statement.execute(sql);
-				if (isResultSet) {
-					ResultSet rs = statement.getResultSet();
-					ResultSetMetaData rsmd = rs.getMetaData();
-					while (rs.next()) {
-						for (int i=1;i<=rsmd.getColumnCount(); i++)
-							System.out.print(rs.getString(i)+"\t");
-						System.out.println();
-					}
-				} else {
-					System.out.println(statement.getUpdateCount() + " rows affected");
-					
-				}
-			}
-			/*
-			 * TODO 
-			 * DELETE
-			 * JUST FOR TESTING
-			 */
-			
-			
 
 			// persist until exit
 			while (true) {
@@ -96,6 +55,8 @@ public class Main {
 				System.out.print("Are you logging in as a Customer (C) or Employee (E): ");
 				userInput = scanIn.nextLine().toUpperCase();
 
+				if (userInput.equals("exit")) break;
+				
 				while (!((userInput.equals("C") || userInput.equals("E")))) {
 					System.out.print("Unrecognized input. Please enter 'C' for Customer or 'E' for Employee: ");
 					userInput = scanIn.nextLine().toUpperCase();
@@ -358,9 +319,11 @@ public class Main {
 						}
 					}
 				}
+				scanIn.close();
 			} // end While loop
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
+		
 	}
 }
