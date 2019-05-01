@@ -24,9 +24,10 @@ public class Main {
 		try {
 			prop.load(ClassLoader.getSystemResourceAsStream("connection.properties"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
+		
+		Scanner scanIn = new Scanner(System.in);
 
 		// Create/Open a connection to a postgres instance and take in Scanner input from standard input
 		try (Connection connection = sqlconnection.establishConnection(prop.getProperty("url"), prop.getProperty("user"), 
@@ -319,8 +320,8 @@ public class Main {
 						}
 					}
 				}
-				scanIn.close();
 			} // end While loop
+			scanIn.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}

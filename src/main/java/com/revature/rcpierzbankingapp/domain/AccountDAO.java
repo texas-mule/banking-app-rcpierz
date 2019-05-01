@@ -63,10 +63,7 @@ public class AccountDAO {
 			
 			if (statement.getUpdateCount() == 1) {
 				System.out.println("Account successfully added to database");
-				/* 
-				 * TODO
-				 * Add transaction to Log
-				 */
+				// TODO Add LogNewAccount
 			} else System.out.println("Unable to add account to database.");
 		} catch (SQLException e) { e.printStackTrace(); }
 	}
@@ -94,10 +91,8 @@ public class AccountDAO {
 				if (Integer.parseInt(rs.getString("account_id")) > maxID) maxID = Integer.parseInt(rs.getString("account_id"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return accounts;
 	}
 	
@@ -159,5 +154,4 @@ public class AccountDAO {
 		}
 		return accData;
 	}
-
 }

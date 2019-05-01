@@ -1,10 +1,5 @@
 package com.revature.rcpierzbankingapp.domain;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -204,10 +199,6 @@ public class Account {
 		System.out.println("The account is currently pending... Requires employee approval before use");
 		accData[5] = null;
 		
-		/* 
-		 * TODO 
-		 * MAYBE? Give option to login as employee immediately
-		 */
 		sc.close();
 		return new Account(accData);
 	}
@@ -241,7 +232,6 @@ public class Account {
 			Account otherAcc = this.transfer(currUser, custAccList);
 			accDAO.updateAccount(this);
 			accDAO.updateAccount(otherAcc);
-			
 		}
 	}
 
@@ -349,5 +339,4 @@ public class Account {
 				+ "\t" +this.getStatus() + "\t"
 				+ this.balance;
 	}
-
 }
