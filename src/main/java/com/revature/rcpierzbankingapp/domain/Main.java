@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
-		SQLConnection sqlconnection = SQLConnection.getInstance();
 		String userInput, accId, continueA, continueB, continueC;
 		Customer currCust;
 		Boolean adminStatus=false;
